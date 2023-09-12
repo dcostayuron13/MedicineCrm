@@ -7,7 +7,7 @@ USER_ROLES = (
         ('customer_care', 'Customer Care'),
         ('customer', 'Customer'),
         ('escalator', 'Escalator'),
-('verifier', 'Verifier'),
+        ('verifier', 'Verifier'),
     )
 
 LEAD_SOURCE = (
@@ -15,4 +15,10 @@ LEAD_SOURCE = (
         ('inbound', 'Inbound'),
         ('website', 'Website'),
         ('email', 'Email'),
+    )
+
+ORDER_STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered')
     )
