@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-34uafust)4nkqp0xp7d6_&tkatj+92y%h_ca$*3er)$=0%183g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['1eff-49-249-204-250.ngrok-free.app',]
 
 
 # Application definition
@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "apps.core",
+    "apps.customer",
+    "apps.employee",
+    "apps.inventory",
+    "apps.orders",
 ]
 
 MIDDLEWARE = [
@@ -98,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+AUTH_USER_MODEL='core.CustomUser'
 
 
 # Internationalization
