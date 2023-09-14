@@ -25,18 +25,23 @@ SECRET_KEY = 'django-insecure-8o4tnio4j=xblmx7q+$(==^!ug+#1h45)i49%qr#a7n&k2g#j7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['1eff-49-249-204-250.ngrok-free.app',]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+
+    "apps.inventory",
+    "apps.orders",
+
     'apps.core',
     'apps.customer',
     'apps.employee',
@@ -45,7 +50,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
 
-    'django_rest_passwordreset',
+
 
 ]
 
@@ -59,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'crm_backend.urls'
+ROOT_URLCONF = 'medicinecrm.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +82,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crm_backend.wsgi.application'
+WSGI_APPLICATION = 'medicinecrm.wsgi.application'
 
 
 # Database
@@ -110,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL='core.CustomUser'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

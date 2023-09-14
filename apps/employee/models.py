@@ -22,3 +22,4 @@ class Employee(CustomUser):
         verbose_name = _("employee")
         verbose_name_plural = _("employees")
         ordering = ['-created_on']
+

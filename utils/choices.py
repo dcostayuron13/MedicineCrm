@@ -10,6 +10,11 @@ USER_ROLES = (
 ('verifier', 'Verifier'),
     )
 
+ORDER_STATUS_CHOICES = (
+        ('Pending', 'Pending'),
+        ('Shipped', 'Shipped'),
+        ('Delivered', 'Delivered')
+)
 LEAD_SOURCE = (
         ('outbound', 'Outbound'),
         ('inbound', 'Inbound'),

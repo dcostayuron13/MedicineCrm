@@ -59,5 +59,3 @@ class Customer( CustomUser):
         verbose_name = _("customer")
         verbose_name_plural = _("customers")
         ordering = ['-created_on']
-
-

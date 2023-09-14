@@ -3,7 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer, LoginSerializer, PasswordResetSerializer, VerifyOTPSerializer, ResendOTPSerializer, OTPVerificationSerializer
+from .serializers import UserSerializer, LoginSerializer, PasswordResetSerializer,  ResendOTPSerializer, OTPVerificationSerializer
 from django.contrib.auth import get_user_model, login
 from .models import OTP,CustomUser
 
