@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import CustomUser
+from apps.core.models import CustomUser
 from datetime import datetime
 import random
 from django.contrib.auth import authenticate, get_user_model
-from .models import OTP
+from apps.core.models import OTP
 
 User = get_user_model()
 

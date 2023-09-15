@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Category, Inventory
+from apps.inventory.models import Category, Inventory
 from .serializers import  CategorySerializer, InventorySerializer
 
 

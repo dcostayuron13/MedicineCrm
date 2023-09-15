@@ -3,7 +3,7 @@ from django.contrib import admin
 # Register your models here.
 from django.contrib import admin
 
-from .models import *
+from apps.customer.models import *
 
 class MemberAdmin(admin.ModelAdmin):
   list_display = ('email', 'username', 'role', 'is_active', 'is_staff')

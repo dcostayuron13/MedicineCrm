@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UserSerializer, LoginSerializer, PasswordResetSerializer,  ResendOTPSerializer, OTPVerificationSerializer
 from django.contrib.auth import get_user_model, login
-from .models import OTP,CustomUser
+from apps.core.models import OTP,CustomUser
 
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import *
+from apps..models import *
 
 class TicketsDisplay(admin.ModelAdmin):
   list_display = ('subject', 'status', 'priority', 'is_active') #, 'created_by')

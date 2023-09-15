@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order
+from apps.orders.models import Order
 #
 # @admin.register(Order)
 # class OrderAdmin(admin.ModelAdmin):
