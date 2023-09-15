@@ -16,8 +16,8 @@ from rest_framework.authtoken.models import Token
 from django.core.validators import RegexValidator
 
 mobile_phone_regex = RegexValidator(
-    regex=r"^(04\d{8})$",
-    message="Mobile phone number must be in the format: 04XX XXX XXX",
+    regex=r"^(07\d{8})$",
+    message="Mobile phone number must be in the format: 07XX XXX XXX",
 )
 
 class CustomUser(AbstractBaseUser, Basemodel, PermissionsMixin):
@@ -68,7 +68,7 @@ class CustomUser(AbstractBaseUser, Basemodel, PermissionsMixin):
 
     # EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['phone']
+    REQUIRED_FIELDS = ['username','phone']
 
     class Meta:
         verbose_name = _("User")

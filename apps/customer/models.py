@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.core.validators import RegexValidator
 
 landline_phone_regex = RegexValidator(
-    regex=r"^\((?:0[2-9]|[2-9]\d)\)\s?\d{4}\s?\d{4}$|^(?:0[2-9]|[2-9]\d)\s?\d{8}$",
+    regex=r"^\((0[2-9]|[2-9]\d)\)\s?\d{4}\s?\d{4}$|^(0[2-9]|[2-9]\d)\s?\d{8}$",
     message="Landline phone number must be in the format: (XX) XXXX XXXX or XX XXXX XXXX",
 )
 
@@ -24,7 +24,7 @@ class Address(Basemodel):
     postal_code = models.CharField(_("Postal Code"), max_length=150, blank=True, null=True)
     lat = models.CharField(_("Latitude"), max_length=150, blank=True, null=True)
     long = models.CharField(_("Longitude"), max_length=150, blank=True, null=True)
-    country = models.CharField(_("Country"), max_length=150, default="Australia")
+    country = models.CharField(_("Country"), max_length=150, blank=True, null=True)
 
     class Meta:
         verbose_name = _("address")
