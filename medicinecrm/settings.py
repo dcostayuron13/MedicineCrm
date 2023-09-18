@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8o4tnio4j=xblmx7q+$(==^!ug+#1h45)i49%qr#a7n&k2g#j7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1eff-49-249-204-250.ngrok-free.app',]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 # Email Backend Configuration

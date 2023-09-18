@@ -1,17 +1,11 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import viewsets
 from .models import Category, Inventory
-from .serializers import  CategorySerializer, InventorySerializer
+from .serializers import CategorySerializer, InventorySerializer
 
-
-class ListCategoriesView(generics.ListAPIView):
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class ListInventoryView(generics.ListAPIView):
+class InventoryViewSet(viewsets.ModelViewSet):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
-
-class DeleteProductView(generics.DestroyAPIView):
-    lookup_field = 'id'
-    queryset = Inventory.objects.all()

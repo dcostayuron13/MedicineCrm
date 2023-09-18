@@ -1,14 +1,15 @@
 from rest_framework import serializers
 from .models import Category,Inventory
+from utils.dynamicfields import DynamicFieldsModelSerializer
 
 
 
-class CategorySerializer(serializers.ModelSerializer,):
+class CategorySerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
-class InventorySerializer(serializers.ModelSerializer):
+class InventorySerializer(DynamicFieldsModelSerializer):
     category = serializers.StringRelatedField()
 
     class Meta:

@@ -1,14 +1,15 @@
 from rest_framework import serializers
 from .models import Order
-# from apps.customer.serializers import CustomerSerializer
+from apps.customer.serializers import CustomerSerializer
 from utils.choices import ORDER_STATUS_CHOICES
 from utils.dynamicfields import DynamicFieldsModelSerializer
 
+
+
 class OrderSerializer(DynamicFieldsModelSerializer):
-    # customer = CustomerSerializer()
+    customer = CustomerSerializer()
     status = serializers.ChoiceField(choices=ORDER_STATUS_CHOICES)
     date = serializers.DateTimeField(read_only=True)
-
 
 
 
