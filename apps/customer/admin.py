@@ -6,7 +6,7 @@ from django.contrib import admin
 from apps.customer.models import *
 
 class MemberAdmin(admin.ModelAdmin):
-  list_display = ('email', 'username', 'role', 'is_active', 'is_staff')
+  list_display = ('id', 'first_name', 'last_name', 'phone', 'address','remarks','dnc')
   search_fields = ['username', 'email']
 
 admin.site.register(Customer, MemberAdmin)

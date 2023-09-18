@@ -11,10 +11,17 @@ from django.utils import timezone
 
 # Create your models here.
 class Employee(CustomUser):
-    position = models.CharField(_("Position"), max_length=50,blank=True, null=True)
-    joined_on = models.DateTimeField(_("Created On"), default=timezone.now)
-    dept = models.CharField(_("Department"), max_length=50, blank=True, null=True)
-    reporting_to = models.CharField(_("Reporting To"), max_length=100, blank=True, null=True)
+    role = models.CharField(_("Role"), max_length=50, choices=USER_ROLES)
+    # role = models.OneToOneField(_("Role"), max_length=50, choices=USER_ROLES)
+    reporting_to = models.ForeignKey(
+        "self",
+        verbose_name=_("Reporting to"),
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="reportees",
+    )
+
 
     user = UserManager()
 

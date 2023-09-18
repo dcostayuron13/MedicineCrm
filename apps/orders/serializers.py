@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.orders.models import Order
+from .models import Order
 # from apps.customer.serializers import CustomerSerializer
 from utils.choices import ORDER_STATUS_CHOICES
 from utils.dynamicfields import DynamicFieldsModelSerializer

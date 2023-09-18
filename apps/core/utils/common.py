@@ -5,19 +5,10 @@ from rest_framework import status
 from rest_framework.response import Response
 from apps.core.models import OTP
 
-def generate_otp_for_user(user):
-    try:
-        otp_code = str(random.randint(1000, 9999))
-        expires_at = timezone.now() + timezone.timedelta(minutes=15)
-        otp = OTP(user=user, otp_code=otp_code, expires_at=expires_at)
-        otp.save()
-        return otp_code
-    except Exception as e:
-        raise Exception('Failed to generate OTP.')
 
-def generate_otp_forgot_password(user):
+def generate_otp(user):
     try:
-        otp_code = str(random.randint(100000, 999999))
+        otp_code = str(random.randint(10000, 99999))
         expires_at = timezone.now() + timezone.timedelta(minutes=15)
         otp = OTP(user=user, otp_code=otp_code, expires_at=expires_at)
         otp.save()
@@ -29,7 +20,7 @@ def generate_otp_forgot_password(user):
 def send_otp_via_email(user, otp_code):
     try:
         subject = 'Your OTP for Login'
-        message = f'Your OTP(One Time Password) is: {otp_code}.Do not share it with anyone.'
+        message = f'Your OTP(One Time Password) is: {otp_code}. Do not share it with anyone.'
         from_email = 'noreply@example.com'  # Replace with your email
         recipient_list = [user.email]
 

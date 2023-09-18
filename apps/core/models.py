@@ -16,31 +16,29 @@ from rest_framework.authtoken.models import Token
 from django.core.validators import RegexValidator
 
 mobile_phone_regex = RegexValidator(
-    regex=r"^(04\d{8})$",
-    message="Mobile phone number must be in the format: 04XX XXX XXX",
+    regex=r"^\d{10}$",
+    message="Mobile phone number must be 10 digits.",
 )
 
 class CustomUser(AbstractBaseUser, Basemodel, PermissionsMixin):
-    username_validator = ASCIIUsernameValidator()
+    # username_validator = ASCIIUsernameValidator()
     unique_error_message = _("A user with that {} already exists.")
 
-    username = models.CharField(
-        _("username"),
-        max_length=150,
-               help_text=_("Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."),
-        error_messages={"unique": unique_error_message.format("username")},
-    )
-
-    # title = models.CharField(_("Title"), max_length=50, blank=True, null=True)
     first_name = models.CharField(_("First name"), max_length=150, blank=True)
     middle_name = models.CharField(_("Middle name"), max_length=150, blank=True)
     last_name = models.CharField(_("Last name"), max_length=150, blank=True)
+
+    # username = models.CharField(
+    #     _("username"),
+    #     max_length=150,
+    #            help_text=_("Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."),
+    #     error_messages={"unique": unique_error_message.format("username")},
+    # )
 
     email = models.EmailField(
         _("Email address"),
         unique=True,
         error_messages={"unique": unique_error_message.format("email address")},
-        # validators= validate_email,
     )
 
     phone = models.CharField(
@@ -51,9 +49,9 @@ class CustomUser(AbstractBaseUser, Basemodel, PermissionsMixin):
         validators=[mobile_phone_regex],
     )
 
-    # dob = models.DateField(_("Date of Birth"), blank=True, null=True)
+    # role = models.CharField(_("Role"), max_length=50, choices=USER_ROLES)
 
-    role = models.CharField(_("Role"), max_length=50, choices=USER_ROLES)
+
 
     is_staff = models.BooleanField(
         _("staff status"),
@@ -66,7 +64,6 @@ class CustomUser(AbstractBaseUser, Basemodel, PermissionsMixin):
 
     objects = UserManager()
 
-    # EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['phone']
 
@@ -92,23 +89,6 @@ class OTP(Basemodel):
 
 
 
-
-
-
-
-
-# class MedicalHistory(Basemodel):
-#     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_address')
-#     disease = models.CharField(_("Disease"), max_length=100, blank=True, null=True)
-#     allergies = models.CharField(_("Allergies"), max_length=250, blank=True, null=True)
-#     description = models.TextField(_("Description"), blank=True, null=True)
-#     family_history
-#     symptoms
-#
-#     class Meta:
-#         verbose_name = _("Medical remark")
-#         verbose_name_plural = _("Medical remarks")
-#         ordering = ['-created_on']
 
 
 
