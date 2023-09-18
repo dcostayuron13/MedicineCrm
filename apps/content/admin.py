@@ -8,4 +8,3 @@ class TicketsDisplay(admin.ModelAdmin):
 
 admin.site.register(Tickets, TicketsDisplay)
 admin.site.register(Comments)
-admin.site.register(Payment)

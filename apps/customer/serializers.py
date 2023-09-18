@@ -11,33 +11,33 @@ User = get_user_model()
 class AddressSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = Address
-        fields = ['appt_no', 'street_number', 'street_name', 'suburb', 'state', 'postal_code', 'country']
+        fields = ['address1', 'city', 'postal_code',  'country']
 
 
 class CostumerSerializer(DynamicFieldsModelSerializer):
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only= True)
-    address = AddressSerializer(many=True) #read only
+    # password2 = serializers.CharField(style={'input_type': 'password'}, write_only= True)
+    address = AddressSerializer()  #many=True) #read only
     class Meta:
         model = Customer
-        fields = ('email', 'username', 'phone', 'password', 'password2','title', 'first_name', 'last_name', 'role', 'dnc' ,'is_staff', 'address')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ('id', 'title', 'first_name', 'last_name','email', 'phone', 'landline_phone', 'address', 'remarks','dnc')
+        # extra_kwargs = {'password': {'write_only': True}}
 
-        def validate(self, data):
-            # Ensure that the passwords match
-            if data['password'] != data['password2']:
-                raise serializers.ValidationError({'password': 'Passwords must match.'})
-            return data
+        # def validate(self, data):
+        #     # Ensure that the passwords match
+        #     if data['password'] != data['password2']:
+        #         raise serializers.ValidationError({'password': 'Passwords must match.'})
+        #     return data
 
-        def create(self, validated_data):
-
-            validated_data.pop('password2', None)
+    def create(self, validated_data):
             address_data = validated_data.pop('address')
 
-            customer = Customer.objects.create(**validated_data)
-
             address, created = Address.objects.get_or_create(**address_data)
-            customer.address = address
-            customer.set_password(validated_data['password'])
-            customer.save()
+
+            customer = Customer.objects.create(address=address, **validated_data)
             return customer
 
+
+# class CustomerSerializer(DynamicFieldsModelSerializer):
+#     class Meta:
+#         model = Customer
+#         fields = ('id', 'first_name', 'last_name', 'phone', 'postal_code')
