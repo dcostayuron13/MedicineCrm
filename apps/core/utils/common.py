@@ -15,7 +15,7 @@ def generate_otp(user):
         otp.save()
         return otp_code
     except Exception as e:
-        raise Exception('Failed to generate OTP.')
+        raise Exception(e)
 
 
 def send_otp_via_email(user, otp_code):
