@@ -10,12 +10,14 @@ from rest_framework.permissions import IsAuthenticated
 
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
+from .permissions import IsAdminOrSuperAdmin
 
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    permission_classes = [IsAdminOrSuperAdmin]
 
 
 class LoginView(viewsets.ModelViewSet):
