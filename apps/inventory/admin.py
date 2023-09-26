@@ -1,20 +1,12 @@
 from django.contrib import admin
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
+from .models import *
 
 class InventoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category', 'quantity', 'price', 'manufacturer',)
-    list_filter = ('category',)
-    search_fields = ('name', 'category__name', 'manufacturer',)
-    ordering = ('name',)
+    list_display = ['id', 'product_name', 'price', 'instock_quantity', 'category']
+    search_fields = ['id', 'product_name', 'category', 'price']
+    list_filter = ['category']
+    ordering = ('id', 'product_name')
 
-    fieldsets = (
-        (None, {
-            'fields': ('name', 'description', 'category')
-        }),
-        ('Additional Information', {
-            'fields': ('quantity', 'price', 'manufacturer')
-        }),
-    )
+admin.site.register(Inventory, InventoryAdmin)
+

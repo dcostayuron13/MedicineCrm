@@ -10,10 +10,13 @@ USER_ROLES = (
     )
 
 ORDER_STATUS_CHOICES = (
-        ('Pending', 'Pending'),
-        ('Shipped', 'Shipped'),
-        ('Delivered', 'Delivered')
+        ('pending', 'Pending'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+('cancelled', 'Cancelled'),
+    ('returned', 'Returned'),
 )
+
 LEAD_SOURCE = (
         ('outbound', 'Outbound'),
         ('inbound', 'Inbound'),
