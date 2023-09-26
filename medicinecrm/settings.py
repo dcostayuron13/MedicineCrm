@@ -154,12 +154,12 @@ EMAIL_HOST_USER = 'natureshealthcare28@gmail.com'  # Replace with your email use
 EMAIL_HOST_PASSWORD = 'wsnxuvtfrpxxcdnu'  # Replace with your email password
 
 # For token authentication
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ],
-# 'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.AllowAny',
-#     ]
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
 
