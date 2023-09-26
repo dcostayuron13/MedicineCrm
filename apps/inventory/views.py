@@ -1,17 +1,13 @@
 from django.shortcuts import render
-from rest_framework import generics
-from apps.inventory.models import Category, Inventory
-from .serializers import  CategorySerializer, InventorySerializer
+
+from .serializers import InventorySerializer
+from rest_framework.permissions import AllowAny
+from rest_framework import viewsets
+from .models import Inventory
 
 
-class ListCategoriesView(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
 
-class ListInventoryView(generics.ListAPIView):
+class InventoryViewSet(viewsets.ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
-
-class DeleteProductView(generics.DestroyAPIView):
-    lookup_field = 'id'
-    queryset = Inventory.objects.all()

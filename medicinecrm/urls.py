@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/',include([
 path('user/', include('apps.employee.urls')),
         path('customer/', include('apps.customer.urls')),
+path('order/', include('apps.orders.urls')),
+path('inventory/', include('apps.inventory.urls')),
     ])),
 ]
 

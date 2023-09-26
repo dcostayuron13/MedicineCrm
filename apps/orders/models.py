@@ -2,18 +2,51 @@ from django.db import models
 from apps.core.basemodel import Basemodel
 from apps.customer.models import Customer
 from apps.inventory.models import Inventory
+from apps.employee.models import Employee
 from utils.choices import *
 
 from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
+# class Order(Basemodel):
+#     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+#     inventory = models.ManyToManyField(Inventory, )
+#     date = models.DateTimeField(auto_now_add=True)
+#     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='Pending')
+#     total_amount = models.DecimalField(max_digits=8, decimal_places=2)
+
+
 class Order(Basemodel):
+    id = models.CharField(max_length=10, primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    inventory = models.ManyToManyField(Inventory, )
-    date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='Pending')
-    total_amount = models.DecimalField(max_digits=8, decimal_places=2)
+    agent = models.ForeignKey(Employee, verbose_name=_("Agent"),
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="agent",)
+    inventory = models.ManyToManyField(Inventory, verbose_name=_("Product Name"))
+    order_quantity = models.CharField(_("Order Quantity"), max_length=50, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='Pending', verbose_name=_("Status"))
+    total_amount = models.DecimalField(max_digits=8, decimal_places=2, verbose_name=_("Total Amount"))
+    remarks = models.TextField(_("Remark"), blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            last_order = Order.objects.order_by('-id').first()
+            if last_order:
+                last_id = int(last_order.id.split('-')[1])
+            else:
+                last_id = 0
+            self.id = f'ORD-{str(last_id + 1).zfill(4)}'
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Order")
+        verbose_name_plural = _("Orders")
+        ordering = ['-created_on']
+
+
 
 
 
