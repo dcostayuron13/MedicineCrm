@@ -19,7 +19,7 @@ class CostumerSerializer(DynamicFieldsModelSerializer):
     address = AddressSerializer()  #many=True) #read only
     class Meta:
         model = Customer
-        fields = ('id', 'title', 'first_name', 'last_name','email', 'phone', 'landline_phone', 'address', 'remarks','dnc')
+        fields = ('id', 'title', 'first_name','middle_name', 'last_name','email', 'phone', 'landline_phone', 'address', 'remarks','dnc')
         # extra_kwargs = {'password': {'write_only': True}}
 
         # def validate(self, data):

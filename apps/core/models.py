@@ -82,7 +82,7 @@ class OTP(Basemodel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     otp_code = models.CharField(max_length=6)
     # created_at = models.DateTimeField(auto_now_add=True)
-    expires_at = models.DateTimeField()
+    expires_at = models.DateTimeField(timezone.timedelta(minutes=5))
 
     def is_expired(self):
         return self.expires_at < timezone.now()

@@ -3,7 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import EmployeeSerializer, LoginSerializer, PasswordResetSerializer,  ResendOTPSerializer, OTPVerificationSerializer
+from .serializers import EmployeeSerializer, LoginSerializer, ConfirmPasswordSerializer,  SendOTPSerializer, OTPVerificationSerializer
 from django.contrib.auth import get_user_model, login
 from .models import Employee
 from rest_framework.permissions import IsAuthenticated
@@ -51,6 +51,34 @@ class LoginView(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ForgotPasswordView(viewsets.ModelViewSet):
+    serializer_class = SendOTPSerializer
+    queryset = Employee.objects.all()
+
+    def create(self, request):  #create
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            try:
+                email = serializer.validated_data.get('email')
+            except ObjectDoesNotExist:
+                return Response({'message': 'User does not exist. Please register now!'}, status=status.HTTP_404_NOT_FOUND)
+
+            delete_expired_otps()
+
+            user = Employee.objects.filter(email=email).first()
+
+            if not user:
+                return Response({'message': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+            otp_code = generate_otp(user)
+            send_otp_via_email(user, otp_code)
+            return Response({'message': 'OTP sent successfully!'}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class OTPVerificationView(viewsets.ViewSet):
     serializer_class = OTPVerificationSerializer
 
@@ -75,7 +103,7 @@ class OTPVerificationView(viewsets.ViewSet):
                     return Response({'message': 'Login successful.', 'token': token.key}, status=status.HTTP_200_OK)
                 else:
                     return Response({'message': 'Invalid OTP.'}, status=status.HTTP_400_BAD_REQUEST)
-
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
@@ -93,9 +121,9 @@ def get_user_data(request):
     return Response({'error': 'Not Authenticated!'}, status=400)
 
 
-class PasswordResetViewSet(viewsets.ViewSet):
-    serializer_class = PasswordResetSerializer
-    basename = 'forgot_password'
+class ConfirmPasswordViewSet(viewsets.ViewSet):
+    serializer_class = ConfirmPasswordSerializer
+    # basename = 'forgot_password'
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -106,15 +134,13 @@ class PasswordResetViewSet(viewsets.ViewSet):
                 new_password = serializer.validated_data['new_password']
                 confirm_password = serializer.validated_data['confirm_password']
 
-                try:
-                    user = Employee.objects.get(email=email)
-                except User.DoesNotExist:
-                    return Response({'message': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+                user = Employee.objects.get(email=email)
+
 
             except ObjectDoesNotExist:
                 return Response({'message': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-            otp_code = generate_otp_forgot_password(user)
+            otp_code = generate_otp(user)
 
             if not verify_otp(user, otp):
                 return Response({'message': 'Invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
@@ -134,7 +160,7 @@ class PasswordResetViewSet(viewsets.ViewSet):
 
 
 class ResendOTPView(viewsets.ViewSet):
-    serializer_class = ResendOTPSerializer
+    serializer_class = SendOTPSerializer
 
     def create(self, request):
         serializer = self.serializer_class(data=request.data)

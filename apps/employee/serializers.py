@@ -6,7 +6,7 @@ from utils.dynamicfields import DynamicFieldsModelSerializer
 class OTPSerializer(DynamicFieldsModelSerializer):
     class Meta:
         model = OTP
-        fields =['otp_code', 'created_at', 'expires_at']
+        fields =['otp_code', 'expires_at']
 
 
 class LoginSerializer(DynamicFieldsModelSerializer):
@@ -26,14 +26,21 @@ class OTPVerificationSerializer(DynamicFieldsModelSerializer):
         model = Employee
         fields = ('email', 'otp')
 
-class PasswordResetSerializer(DynamicFieldsModelSerializer):
+
+
+class ConfirmPasswordSerializer(DynamicFieldsModelSerializer):
     email = serializers.EmailField()
-    otp = serializers.CharField(max_length=6, min_length=6)
+    otp = serializers.CharField(max_length=6, min_length=4)
     new_password = serializers.CharField(write_only=True, required=True, style={"input_type": "password"})
     confirm_password = serializers.CharField(write_only=True, required=True, style={"input_type": "password"})
 
+    class Meta:
+        model = Employee
+        fields = ('email','otp', 'new_password', 'confirm_password')
 
-class ResendOTPSerializer(DynamicFieldsModelSerializer):
+
+
+class SendOTPSerializer(DynamicFieldsModelSerializer):
     email = serializers.EmailField()
     class Meta:
         model = Employee
@@ -49,8 +56,10 @@ class EmployeeSerializer(DynamicFieldsModelSerializer):
 
     def validate(self, data):
         # Ensure that the passwords match
-        if data['password'] != data['password2']:
-            raise serializers.ValidationError({'password': 'Passwords must match.'})
+        request = self.context.get('request')
+        if request and request.method == "POST":
+            if data['password'] != data['password2']: #and request.method == "POST":
+                raise serializers.ValidationError({'password': 'Passwords must match.'})
         return data
 
     def create(self, validated_data):

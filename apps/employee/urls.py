@@ -10,7 +10,8 @@ router.register(r'login', LoginView)
 
 
 simple_router = SimpleRouter()
-simple_router.register(r'forgot_password', PasswordResetViewSet, basename='forgot_password')
+simple_router.register(r'forgot_password', ForgotPasswordView, basename='forgot_password')
+simple_router.register(r'confirm_password', ConfirmPasswordViewSet, basename='confirm_password')
 simple_router.register(r'resend_otp', ResendOTPView, basename='resend_otp')
 simple_router.register(r'verify_otp', OTPVerificationView, basename='verify_otp')
 # simple_router.register(r'logout', LogoutView, basename='logout')
