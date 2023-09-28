@@ -22,7 +22,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
 # class CustomerSearchView(viewsets.ViewSet):
 #     serializer_class = CostumerSerializer  # Use your Customer serializer
 #
-#     def post(self, request):
+#     def list(self, request):
 #         id = request.query_params.get('id', None)
 #         first_name = request.query_params.get('first_name', None)
 #         last_name = request.query_params.get('last_name', None)

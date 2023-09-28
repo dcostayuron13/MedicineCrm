@@ -146,3 +146,37 @@ REST_FRAMEWORK = {
     ]
 }
 
+#CORS:
+# Allow all domains to access your API (not recommended for production)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# You can also specify other CORS settings as needed
+# For example, to allow cookies and credentials:
+CORS_ALLOW_CREDENTIALS = True
+
+# You can configure more specific options as per your needs
+# For example, allow specific HTTP methods:
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+]
+
+# You can also allow specific headers:
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Configure the maximum age of the CORS options preflight request
+CORS_ALLOW_MAX_AGE = 432,000 # 5 days (in seconds)
+

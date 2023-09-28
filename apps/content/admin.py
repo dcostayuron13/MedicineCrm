@@ -7,4 +7,4 @@ class TicketsDisplay(admin.ModelAdmin):
   search_fields = ['subject', 'status']
 
 admin.site.register(Tickets, TicketsDisplay)
-admin.site.register(Comments)
+# admin.site.register(Comments)

@@ -195,4 +195,4 @@ CORS_ALLOW_HEADERS = [
 ]
 
 # Configure the maximum age of the CORS options preflight request
-CORS_ALLOW_MAX_AGE = 86400  # 1 day (in seconds)
+CORS_ALLOW_MAX_AGE = 432,000 # 5 days (in seconds)
