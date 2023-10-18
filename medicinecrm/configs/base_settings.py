@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'apps.content',
     'rest_framework',
     'rest_framework.authtoken',
-'corsheaders',
+
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +62,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'medicinecrm.urls'
@@ -86,31 +88,13 @@ WSGI_APPLICATION = 'medicinecrm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
-# AUTH_PASSWORD_VALIDATORS = [
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-#     },
-#     {
-#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-#     },
-# ]
+
 
 AUTH_USER_MODEL='core.CustomUser'
 
@@ -151,6 +135,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host for gmail -> 'smtp
 EMAIL_HOST_USER = 'natureshealthcare28@gmail.com'  # Replace with your email username
 EMAIL_HOST_PASSWORD = 'wsnxuvtfrpxxcdnu'  # Replace with your email password
 
+
 # For token authentication
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -160,8 +145,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]
 }
-
-
 
 #CORS:
 # Allow all domains to access your API (not recommended for production)
@@ -196,3 +179,4 @@ CORS_ALLOW_HEADERS = [
 
 # Configure the maximum age of the CORS options preflight request
 CORS_ALLOW_MAX_AGE = 432,000 # 5 days (in seconds)
+
